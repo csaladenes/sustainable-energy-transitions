@@ -1,0 +1,361 @@
+<!DOCTYPE xhtml>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="Sustainable Energy Transitions Morphology: A Net Energy-based Target Setting for a Climate-constrained Energy Transition @csaladenes @ugobardi" />
+    <meta name="keywords" content="csaladenes, set, system dynamics, sustainable energy transitions, renewable energy, energy return on energy invested, eroei, eroi, sgouris sgouridis, denes csala, ssgouridis, dcsala, science, nature, article, d3.js, ipython, ugo bardi, ugo, peak oil, hubbert curve, carbon cap, emissions cap, fossil fuels, co2 emissions greenhouse gas emissions" />
+	<meta property="og:image" content="http://set.csaladen.es/plots/Demand_Sensitivity_Rates_EROEI20.png" />
+    <meta property="og:description" content="Sustainable Energy Transitions Morphology: A Net Energy-based Target Setting for a Climate-constrained Energy Transition @csaladenes @ugobardi" />
+    <meta property="og:title" content="Sustainable Energy Transitions" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="set.csaladen.es" />
+    <meta property="og:url" content="http://set.csaladen.es" />
+    <meta property="fb:admins" content="csaladenes" />
+    <title>Sustainable Energy Transitions</title>
+    <link rel="shortcut icon" href="favicon.png" />
+    <style>
+        html,
+        body {
+            height: 100%;
+            font-family: "Trebuchet MS", "Open Sans", Segoe UI light, Verdana, Tahoma, Helvetica, sans-serif;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            background: #fff;
+        }
+        #chart {
+            height: 96%;
+            float: left;
+            position: absolute;
+            width: -moz-calc(80% - 45px);
+            width: -webkit-calc(80% - 45px);
+            width: calc(80% - 45px);
+			text-align:center;
+        }
+        a, a:active {
+            text-decoration: none;
+			color: #360;
+        }
+		.link {
+            text-decoration:underline;
+			color: #360;
+        }
+		a:hover, a:focus, .link:hover{
+			text-decoration:underline;
+			cursor:pointer;
+		}
+		#social {
+			position: fixed;
+            bottom: 5;
+            right: 0;
+            text-decoration: none;
+			padding: 3px;
+			padding-top:1px;
+            z-index: 800;
+			white-space:nowrap;
+			overflow:hidden;
+        }
+		#social a{
+			margin-left:10px;
+			margin-right:5px;
+			color: #000;
+            font-size: 10px;
+            font-family: "Trebuchet MS";  
+            font-weight: lighter;
+            text-decoration: none;			
+		}
+        .pagetitle {
+            height: 30px;
+            color: #360;
+            font-size: 20px;
+            line-height: 30px;
+            text-align: center;
+            font-weight: bold;
+            font-style: oblique
+        }
+        .pagetitle:hover {
+            cursor: pointer;
+        }
+		#titlebar img:hover {
+            cursor: pointer;
+        }
+        .node rect {
+            cursor: move;
+            fill-opacity: .9;
+            shape-rendering: crispEdges
+        }
+        .node text {
+            pointer-events: none;
+            text-shadow: 0 1px 0 #fff
+        }
+        #titlebar {
+				width: -moz-calc(80% - 90px);
+				width: -webkit-calc(80% - 90px);
+				width: calc(80% - 90px);
+				height: 30px;
+            border-bottom: solid;
+            border-color: #EEE;
+            padding-bottom: 5px;
+            margin-left: 40px;
+            margin-top: 5px;
+            position: fixed;
+            z-index: 9;
+        }
+		iframe {
+			border:none;
+			margin-top:10px;
+			margin-left:0px;
+			width:100%;
+			height:100%;
+		}
+		.nbembed{
+			position: fixed;
+			top:40px;
+			left:40px;
+			border-top: solid;
+            border-color: #EEE;
+			width: -moz-calc(100% - 70px);
+            width: -webkit-calc(100% - 70px);
+            width: calc(100% - 70px);
+			height: -moz-calc(100% - 70px);
+            height: -webkit-calc(100% - 70px);
+            height: calc(100% - 70px);
+			text-align:center;
+		}
+		.button:hover{
+			text-decoration:underline;
+			cursor:pointer;
+		}
+		#titlebar img:hover{
+			-moz-box-shadow: scale(1.4);
+			-webkit-transform: scale(1.4);
+			transform:  scale(1.4);
+		}
+    </style>
+    <script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-40713687-4', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+    <script src="js/d3.v3.min.js"></script>
+    <script>
+        var sizecorrection = Math.max(0, 220 - parseInt(window.innerWidth * 0.2));
+        function checksize() {
+            if ((window.innerWidth < 800) || (window.innerHeight < 600)) {
+                alert("The recommended minimum resolution is 800 x 600.\n Yours is " + window.innerWidth + " x " + window.innerHeight + ".");
+            }
+			setTimeout(function(){
+			d3.select("#loading").style("display", "none");
+			var text="Morphology";
+			if (inithash=="#&description") {text="Description"};
+			d3.select("#titletext").text("Sustainable Energy Transitions "+text);
+			if ((inithash=="#&description") )
+				{d3.select("#"+inithash.slice(2,inithash.length)).transition().style("opacity", 1);
+				d3.select("#"+inithash.slice(2,inithash.length)).style("z-index", 0);}
+			else
+				{d3.select("#content").transition().style("opacity", 1);
+				//d3.select("#content").style("z-index", 1);
+				}
+			}, 500);
+			setTimeout(function(){
+				d3.select("#social").transition().style("opacity", 1);
+			},5000);
+        }
+		window.onresize = function() {
+			window.location.reload();
+		}
+    </script>
+	<script type="text/javascript">var switchTo5x=true;</script>
+	<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+	<script type="text/javascript">stLight.options({publisher: "505a26ad-d820-47bd-a500-7f49d04a30f5", doNotHash: true, doNotCopy: false, hashAddressBar: false});</script>
+	</head>
+<body onload="checksize();">
+
+    <!--TITLELBAR-->
+
+    <div id="titlebar">
+        <img onclick="disp_content('#content',myhash);" src="scatter.png" alt="Sankey Diagram" title="Morphology" style="height:20px; width:20px; margin-left:5px; margin-top:0px;">
+        <img onclick="disp_content('#description','#&description')" src="help.png" alt="Description" title="Description" style="height:20px; width:20px; margin-left:0px; margin-top:0px; margin-right:10px;">
+        <span id="titletext" class="pagetitle" title="Food Energy Flows" onclick="document.getElementById('helppop').style.display='block'">Sustainable Energy Transitions</span>
+		<span class="pagetitle" style="positions:relative;float:right;right:30px;top:0px;"><a href="http://sowersway.org/" target="_blank">The Sower's Way</a></span>
+    </div>
+	
+	<!--LOADING-->
+	
+	<div id="loading" class="pagetitle" style="font-size:75px;z-index:0;position:absolute;top:120px;left:100px;">Loading...</div>
+    
+	<!--PAGE WRAPPER-->
+
+    <div id="content" style="opacity:0;">
+
+        <!--PLOT CONTROLS-->
+
+        <div id="sourcecontrol" style="float:right; margin-right:10px; width:20%; margin-top:10px; min-width:220px; border-left:solid; border-color:#EEE; height:98%; padding-left:20px;line-height:26px;z-index:600000;">
+            <div style="display:block;overflow: hidden;white-space: nowrap;line-height:10px;margin-bottom:10px;"><span><span>Cumulative:</span><span>
+         <input type="radio" title="Cumulative" name="r1" class="r1" id="b0" value="Cumulative"/></span><span>&nbsp;&nbsp;&nbsp;<span>Rates:</span><span>
+         <input type="radio" title="Rates" name="r1" class="r1" id="b1" value="Rates" checked /></span><span>&nbsp;&nbsp;&nbsp;<span>&epsilon;:</span><span>
+         <input type="radio" title="Epsilon" name="r1" class="r1" id="b2" value="Epsilon" /></span>
+         </span>
+         </span>
+            </div>	
+			<div style="display:block;overflow: hidden;white-space: nowrap;line-height:22px;"><span style="float:left;">Demand:</span><span style="float:right;">
+            <button id="demand_minus">&lt;</button><select id="demand" name="demand" style="width:100px;direction: rtl;"></select><button id="demand_plus">&gt;</button>
+         </span>
+            </div>
+            <div style="display:block;overflow: hidden;white-space: nowrap;line-height:22px;"><span style="float:left;">EROEI:</span><span style="float:right;">
+            <button id="eroei_minus">&lt;</button><select id="eroei" name="eroei" style="width:100px;direction: rtl;"></select><button id="eroei_plus">&gt;</button>
+         </span>
+            </div>
+			<div style="display:block;overflow: hidden;white-space: nowrap;line-height:22px;"><span style="float:left;">Year:</span><span style="float:right;">
+            <button id="years_minus">&lt;</button><select id="years" name="years" style="width:100px;direction: rtl;"></select><button id="years_plus">&gt;</button>
+         </span>
+			</div>
+			<br>
+			<div style="display:block;overflow: hidden;white-space: nowrap;line-height:22px;" class="button" onclick='d3.select("#main").attr("src","plots/gdp.png");'>GDP Energy Intensity</div>
+			<div style="display:block;overflow: hidden;white-space: nowrap;line-height:22px;" class="button" onclick='d3.select("#main").attr("src","plots/demand.png");'>Demand profiles</div>
+			<div style="display:block;overflow: hidden;white-space: nowrap;line-height:22px;" class="button" onclick='d3.select("#main").attr("src","plots/hubbert_eq.png");'>Multi-variant Hubbert curves</div>
+			<div style="display:block;overflow: hidden;white-space: nowrap;line-height:22px;" class="button" onclick='d3.select("#main").attr("src","plots/hubbert.png");'>Expected depletion rates</div>
+			<div style="display:block;overflow: hidden;white-space: nowrap;line-height:22px;" class="button" onclick='d3.select("#main").attr("src","plots/fossil.png");'>Fossil phase-out profiles</div>
+			<div style="display:block;overflow: hidden;white-space: nowrap;line-height:22px;" class="button" onclick='d3.select("#main").attr("src","plots/cut3.png");'>Detailed Transition Path</div>
+			<div style="display:block;overflow: hidden;white-space: nowrap;line-height:22px;"><span class="button" onclick='d3.select("#main").attr("src","plots/Scenarios_Rates.png");'>Transition scenarios</span>&nbsp;|&nbsp;
+			<span class="button" onclick='d3.select("#main").attr("src","plots/Scenarios_Epsilon.png");'>&epsilon;</span></div>
+			<div style="display:block;overflow: hidden;white-space: nowrap;line-height:22px;"><span class="button" onclick='d3.select("#main").attr("src","plots/Envelopes_Rates.png");'>Transition envelopes</span>&nbsp;|&nbsp;
+			<span class="button" onclick='d3.select("#main").attr("src","plots/Envelopes_Epsilon.png");'>&epsilon;</span></div>
+			<div style="display:block;overflow: hidden;white-space: nowrap;line-height:22px;"><span class="button" onclick='d3.select("#main").attr("src","plots/Histograms_Peak_Rates.png");'>Transition histograms</span>&nbsp;|&nbsp;
+			<span class="button" onclick='d3.select("#main").attr("src","plots/Histograms_Peak_Epsilon.png");'>&epsilon;<sub>peak</sub></span>&nbsp;|&nbsp;<span class="button" onclick='d3.select("#main").attr("src","plots/Histograms_Avg_Epsilon.png");'>&epsilon;<sub>avg</sub></span></div>
+			<div style="display:block;overflow: hidden;white-space: nowrap;line-height:22px;" class="button" onclick='d3.select("#main").attr("src","plots/distributions.png");'>Transition Feasibility Index Inputs</div>
+			<div style="display:block;overflow: hidden;white-space: nowrap;line-height:22px;"><span class="button" onclick='d3.select("#main").attr("src","plots/TDI_Rates.png");'>TFI Bands</span>&nbsp;|&nbsp;
+			<span class="button" onclick='d3.select("#main").attr("src","plots/TDI_Surface.png");'>Surfaces</span>&nbsp;|&nbsp;
+			<span class="button" onclick='d3.select("#main").attr("src","plots/TDI_Histograms.png");'>Histograms</span></div>
+			<br/>
+			<div style="display:block;overflow: hidden;white-space: nowrap;line-height:22px;"><span style="float:left;"><a href="set.html" target="_blank" style="text-decoration:underline;">SET Model 1.0</a></span></div>
+			<div style="display:block;overflow: hidden;white-space: nowrap;line-height:22px;"><span style="float:left;"><a href="http://www.mdpi.com/2071-1050/6/5/2601" target="_blank" >Article in <b>Sustainability</b> (2014)</a></span></div>
+			<div style="display:block;overflow: hidden;white-space: nowrap;line-height:22px;"><span style="float:left;"><a href="set.html" target="_blank" >Online simulator</a>&nbsp;|&nbsp;<a href="models/set.zip" target="_blank" >source file</a></span></div>
+			<br/>
+			<div style="display:block;overflow: hidden;white-space: nowrap;line-height:22px;"><span style="float:left;"><a href="set2.html" target="_blank" style="text-decoration:underline;">SET Model 2.0</a></span></div>
+			<div style="display:block;overflow: hidden;white-space: nowrap;line-height:22px;"><span style="float:left;"><a href="http://arxiv.org/abs/1602.01203" target="_blank" >Article in <b>Env. Res. Let.</b> (2016)</a></span></div>
+			<div style="display:block;overflow: hidden;white-space: nowrap;line-height:22px;"><span style="float:left;"><a href="http://arxiv.org/abs/1503.06832" target="_blank" >Preprint on <b>arXiv</b> (2015)</a></span></div>
+			<div style="display:block;overflow: hidden;white-space: nowrap;line-height:22px;"><span style="float:left;"><a href="set2.html" target="_blank" >Online simulator</a>&nbsp;|&nbsp;<a href="models/set2.zip" target="_blank" >source file</a></span></div>
+			<br/>
+			<div class="link" style="display:block;overflow: hidden;white-space: nowrap;line-height:22px;" onclick="disp_content('#description','#&description')">Description</div>
+		</div>
+
+        <!--PLOTS-->
+
+        <div id="chart" style="z-index:5;">
+		
+            <div id="helppop" style="font-size:12px;padding:15px;position:fixed; text-align:left; left:0 top:0; margin-left:40px; margin-top:43px; z-index:200; background-color:rgba(0,0,0,0.8); color:#fff; line-height:15px;" onclick="document.getElementById('helppop').style.display='none'">
+                <span><b>&#8593;</b>&nbsp;&nbsp;Use the top menu to view the project description.</span>
+				<span style="float:right;right:0px;top:0px;position:relative;">&lt;ESC&gt;</span>
+				<ul>
+                    <li>Welcome to the exploratory site of the Sustainable Energy Transitions!</li>	
+					<li>Navigation
+						<ul>
+							<li>You can navigate on this site using the controls on the right.</li>
+							<li>Hit &lt;ESC&gt; to bring back this menu.</li>
+							<li>Upon making a selection on the radio button and dropdown selectors<br/> the main plot displayed will automatically change.</li>
+							<li>Using the &lt;LEFT&gt; and &lt;RIGHT&gt; arrow keys you can step in your last selection.</li>
+							<li>Below the selectors you can find links to our previously published work.</li>
+							<li>The project includes the development of dynamic net-energy models, <br/>which are interactive and callable directly online - see the links on the right.</li>
+						</ul>
+					</li>
+					<li>Models
+						<ul>
+							<li>The plots are generated using a dynamic net-energy model, SET 2.0.</li>
+							<li>SET 1.0 is a simple implementation of SET 2.0.</li>
+							<li>Both models are written in the AnyLogic multi-agent and system dynamics modelling platform using the JAVA programming language.</li>
+							<li>Both of the models are open source and runnable live on the runthemodel.com online dynamic model repository.</li>
+						</ul>
+					</li>
+					<li>Plots
+						<ul>
+							<li>This site presents the envelope of simulations conducted with the SET Model 2.0.</li>
+							<li>You can find 3 radio buttons and 3 dropdown lists selectors in the top right corner of this page.</li>
+							<li>Use the radio buttons to select the type of results you would like to view.</li>
+							<li>The dropdown lists select the fixed sensitivity parameter. Upon selecting one, <br/>contour plots over the other 2 sensitivity parameters are displayed in the plot area.</li>
+							<li>Below the selectors, you can also choose to display from a list of other relevant plots.</li>
+						</ul>
+					</li>	
+					<li>Impact
+						<ul>
+							<li>This work has resulted so far in numerous conference presentations and one journal article with another one in preparation.</li>
+							<li>It also serves as the main topic for one doctoral dissertation and multiple master's theses under development.</li>
+							<li>Shortly referred to as <i>The Sower's Way</i>, this work lead to the establishment of a <a href="mailto:energytransition@googlegroups.com" style="color:#fff;">mailing list</a> and<br> continuously sparks extensive discussion in the energy-climate researcher community.</li>
+							<li>The Sower's Way concept is presented more extensively on <a href="http://sowersway.org" target="_blank" style="color:#fff;">http://sowersway.org.</a></li>
+							<li>The SET Model 1.0 has more than 2000 runs and on runthemodel.com and multiple positive reviews.</li>
+							<li>On the same platform, it has been selected the model of the month in June 2014.</li>
+						</ul>
+					</li>
+					<li>Authors
+						<ul>
+							<li>This is a project by <a href="http://www.ssgouridis.org" target="_blank" style="color:#fff;">Sgouris Sgouridis</a> and <a href="http://www.csaladen.es" target="_blank" style="color:#fff;">Denes Csala</a> at <a style="color:#fff;" href="http://www.masdar.ac.ae" target="_blank">Masdar Institute of Science and Technology</a>.</li>
+						</ul>
+					</li>
+                </ul>
+				<br>Last updated: 12/02/2016
+				<div style="line-height:20px; display: block; float: right;  z-index: 199;  position: absolute; padding-right:15px;right: 20px; top: 75px; background-color:rgba(0,0,0,0.8);">
+					<ul>
+						<li style="margin-bottom:8px;">Minimum resolution: <b>800 x 600</b></li>
+						<li>
+							<img src="css/win.png" style="width:16px;height:16px;" alt="If you are using Windows" title="If you are using Windows">
+							<img src="" style="width:5px;height:0px;" alt="">--<img src="" style="width:10px;height:0px;" alt="">
+							<img src="css/chrome.png" style="width:16px;height:16px;" alt="Google Chrome supported" title="Google Chrome supported">
+							<img src="css/maxthon.png" style="width:16px;height:16px;" alt="Maxthon Cloud Browser supported" title="Maxthon Cloud Browser supported">
+							<img src="css/ie.png" style="width:16px;height:16px;" alt="Internet Explorer 9.0+ supported" title="Internet Explorer 9.0+ supported">
+						</li>
+						<li>
+							<img src="css/apple.png" style="width:16px;height:16px;" alt="If you are using a Mac" title="If you are using a Mac">
+							<img src="" style="width:5px;height:0px;" alt="">--<img src="" style="width:10px;height:0px;" alt="">
+							<img src="css/chrome.png" style="width:16px;height:16px;" alt="Google Chrome supported" title="Google Chrome supported">
+							<img src="css/maxthon.png" style="width:16px;height:16px;" alt="Maxthon Cloud Browser supported" title="Maxthon Cloud Browser supported">
+							<img src="css/safari.png" style="width:16px;height:16px;" alt="Apple Safari supported" title="Apple Safari supported">
+						</li>
+						<li>
+							<img src="css/android.png" style="width:16px;height:16px;" alt="If you are using Android/Linux" title="If you are using Android/Linux">
+							<img src="" style="width:5px;height:0px;" alt="">--<img src="" style="width:10px;height:0px;" alt="">
+							<img src="css/chrome.png" style="width:16px;height:16px;" alt="Google Chrome supported" title="Google Chrome supported">
+							<img src="css/maxthon.png" style="width:16px;height:16px;" alt="Maxthon Cloud Browser supported" title="Maxthon Cloud Browser supported">
+						</li>
+					</ul>
+				</div>
+            </div>
+
+			<img src="plots/cut3.png" style="position:relative;width:100%;margin-top:50px;margin-left:40px;" id="main"/>
+
+            <!--HELP POPUP-->
+
+        </div>
+
+        <!---------SCRIPTS----------->
+
+        <script src="js/scripts.js"></script>
+	
+    </div>
+	
+	<!--TEXT WRAPPER-->
+	
+	<div id="description" class="nbembed" style="opacity:0;z-index:-1;padding-top:0px;">
+		<iframe id="idescription"  style="margin-top:0px;" src="map/index.html"></iframe>
+		<script>document.getElementById("idescription").src="http://nbviewer.ipython.org/url/set.csaladen.es/description.ipynb"</script>
+	</div>
+	
+	<!--SOCIAL-->
+	
+	<div id="social" style="opacity:0; z-index:800;">
+		<span class='st_facebook'></span>
+		<span class='st_twitter'></span>
+		<span class='st_googleplus'></span>
+		<span class='st_linkedin'></span>
+		<span class='st_tumblr'></span>
+		<span class='st_reddit'></span>
+		<span class='st_email'></span>
+		<span><a href="http://www.csaladen.es" title="created by" alt="created by">© D.C. 2016</a></span>
+	</div>
+	
+	</body>
+</html>

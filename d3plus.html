@@ -1,0 +1,38 @@
+
+<!doctype html>
+<meta charset="utf-8">
+
+<!-- load D3js -->
+<script src="http://www.d3plus.org/js/d3.js"></script>
+
+<!-- load D3plus after D3js -->
+<script src="http://www.d3plus.org/js/d3plus.js"></script>
+
+<!-- create container element for visualization -->
+<div id="viz"></div>
+
+<script>
+
+  // sample data array
+  d3.json("d3plusdata/world_transition.json",function(data){
+  // instantiate d3plus
+  var visualization = d3plus.viz()
+    .container("#viz")  // container DIV to hold the visualization
+    .data(data)  // data to use with the visualization
+    .type("stacked")    // visualization type
+    .id({"value":["type","type","fuel"]})
+	.depth(2)
+    .y("value")         // key to use for y-axis
+    .x("year")          // key to use for x-axis
+    //.time("year")       // key to use for time
+	.ui({"font":{"size":12},"value":[
+		  {
+			"method" : "depth",
+			"value"  :[{"Aggregate":1}, {"Fuels":2} ],
+			"label" : " "
+		  }]
+	})
+    .draw()             // finally, draw the visualization!
+  })
+
+</script>
