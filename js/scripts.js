@@ -41,7 +41,7 @@ var inithash=myhash;
 //<!--DYNAMIC SELECTORS-->
 
 d3.select("#chart").style("width", document.getElementById("chart").offsetWidth - sizecorrection);
-d3.select("#main").style("width", Math.min(document.getElementById("chart").offsetWidth - 40, document.getElementById("chart").offsetHeight*1.28));
+d3.select("#main").style("width", Math.min(document.getElementById("chart").offsetWidth - 40, document.getElementById("chart").offsetHeight*1.26));
 d3.select("#titlebar").style("width", document.getElementById("titlebar").offsetWidth - sizecorrection);
 var demands=[667,753,850,961,1086,1227,1386,1566,1770,2000,2210,2442,2698,2982,3295,3641,4023,4446,4912,5428,5998];
 var eroeis=[7,8,9,10,11,12,14,16,18,20,22,24,27,30,33,36,40,44,49,54,60];
