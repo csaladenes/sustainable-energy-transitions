@@ -1,5 +1,8 @@
-Sustainable Energy Transitions
+
+<img src="favicon.png" alt="favicon" style="height:20px;width:20px"/>[Sustainable Energy Transitions](http://set.csaladen.es/)
 ===
+[![Sustainable Energy Transitions](twitter/twitter.gif "Sustainable Energy Transitions")](http://set.csaladen.es/)  
+
 Investigating how society needs to be aware of EROEI (energy return on energy invested) dynamics of the different energy sources as it transitions away from fossil fuels.  A project by [Sgouris Sgouridis](http://www.ssgouridis.org/) and [Dénes Csala](http://www.csaladen.es/) at [Masdar Institute of Science and Technology](http://www.masdar.ac.ae/)
 
 # App
@@ -21,5 +24,5 @@ Please use articles (1) and (3) to refer to this work. Contact the authors ([Dé
 You can find a detailed description of the model creation, data mining and analysis and visualization [here](http://set.csaladen.es/#&description), in the __Workflow__ section. The code is presented in interactive Jupyter notebooks that you can download and run yourself.
 
 # Credit
-Denes Csala, 2016  
+Dénes Csala, 2016  
 http://csaladen.es
