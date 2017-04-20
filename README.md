@@ -21,5 +21,5 @@ Please use articles (1) and (3) to refer to this work. Contact the authors ([Dé
 You can find a detailed description of the model creation, data mining and analysis and visualization [here](http://set.csaladen.es/#&description), in the __Workflow__ section. The code is presented in interactive Jupyter notebooks that you can download and run yourself.
 
 # Credit
-Denes Csala, 2016
+Denes Csala, 2016  
 http://csaladen.es
