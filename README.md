@@ -1,5 +1,5 @@
 
-<img src="favicon.png" alt="favicon" style="height:20px;width:20px"/>[Sustainable Energy Transitions](http://set.csaladen.es/)
+[<img src="favicon.png" alt="favicon" height=24 width=24 />  Sustainable Energy Transitions](http://set.csaladen.es/)
 ===
 [![Sustainable Energy Transitions](twitter/twitter.gif "Sustainable Energy Transitions")](http://set.csaladen.es/)  
 
