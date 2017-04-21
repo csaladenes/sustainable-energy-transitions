@@ -4,7 +4,9 @@
 [![Sustainable Energy Transitions](twitter/twitter.gif "Sustainable Energy Transitions")](http://set.csaladen.es/)  
 
 Investigating how society needs to be aware of EROEI (energy return on energy invested) dynamics of the different energy sources as it transitions away from fossil fuels.  A project by [Sgouris Sgouridis](http://www.ssgouridis.org/) and [Dénes Csala](http://www.csaladen.es/) at [Masdar Institute of Science and Technology](http://www.masdar.ac.ae/)
-
+  
+__This is an interactive global visualization and exploration interface (_exploratorium_)__.  
+  
 # App
 Try: http://set.csaladen.es
 
