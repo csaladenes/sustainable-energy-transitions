@@ -31,3 +31,7 @@ You can find a detailed description of the model creation, data mining and analy
 # Credit
 Dénes Csala, 2016  
 http://csaladen.es
+
+## 💫 Stars over time
+[![Stargazers over time](https://starchart.cc/csaladenes/sustainable-energy-transitions.svg?variant=adaptive)](https://starchart.cc/csaladenes/sustainable-energy-transitions)
+
